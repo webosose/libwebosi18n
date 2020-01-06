@@ -307,11 +307,11 @@ IString* IString::getChoice(double reference) {
 					i = selectors.size();
 				}
 			} else if ( (value = getBooleanSelector(sel)) > -1 ) {
-				if ( value == reference ) {
+				if ( equalDouble(reference, (double)value) ) {
 					result = new IString(strings[i]);
 					i = selectors.size();
 				}
-			} else if ( reference == parseLong(sel, 10) ) {
+			} else if ( equalDouble(reference, (double)parseLong(sel, 10)) ) {
 				// exact amount
 				result = new IString(strings[i]);
 				i = selectors.size();
@@ -335,6 +335,11 @@ double IString::parseDouble(const string& digit_string) {
 long IString::parseLong(const string& digit_string, int base) {
 	char * pEnd;
 	return strtol(digit_string.c_str(), &pEnd, base);
+}
+
+
+bool IString::equalDouble(double value1, double value2) {
+	return (abs(value1 - value2) * 1000000000000. <= min(abs(value1), abs(value2)));
 }
 
 int IString::length() {

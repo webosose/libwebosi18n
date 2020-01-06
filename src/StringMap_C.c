@@ -23,7 +23,6 @@
 
 #include "webosi18n/c/StringMap_C.h"
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
 
 #define INCREASING_STEP 10;

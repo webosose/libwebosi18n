@@ -352,6 +352,11 @@ class IString {
 		 */
 		long parseLong(const string& digit_string, int base);
 		/**
+		 * Compares two given double values
+		 * @return true if two given values are equal
+		 */
+		bool equalDouble(double value1, double value2);
+		/**
 		 * Splits given source string by given delimeter and returns vector of parts.
 		 * @param source given source string is to be split
 		 * @param delimiter separator that will be used for source string
