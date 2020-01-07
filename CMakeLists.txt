@@ -37,7 +37,9 @@ find_package(Boost REQUIRED COMPONENTS regex)
 include_directories(${Boost_INCLUDE_DIRS})
 webos_add_compiler_flags(ALL ${Boost_CFLAGS_OTHER})
 
-#set(LD_LIBRARY_PATH /usr/local/webos/usr/lib/libpbnjson_cpp.so)
+if (LOCAL_UNITTEST)
+set(LD_LIBRARY_PATH /usr/local/webos/usr/lib/libpbnjson_cpp.so)
+endif()
 set(REQUIRED_LIBS
 	${PBNJSON_C_LDFLAGS}
 	${PBNJSON_CPP_LDFLAGS}

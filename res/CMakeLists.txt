@@ -21,7 +21,9 @@ set(RES_FILES strings.json
 	stringsMX.json
 	cppstrings.json
 	resources/strings.json
-	resources/uk/strings.json)
+	resources/uk/strings.json
+	resources/en/CN/strings.json
+	resources/zh/Hans/CN/strings.json)
 
 foreach(res_file ${RES_FILES})
   configure_file(${res_file} ${res_file} COPYONLY)
