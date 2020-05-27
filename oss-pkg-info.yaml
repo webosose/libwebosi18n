@@ -1,0 +1,5 @@
+Open Source Software Package:
+- name: webOSOSE-libwebosi18n
+  version: 1.0.1
+  source: https://github.com/webosose/libwebosi18n
+  license: Apache-2.0
