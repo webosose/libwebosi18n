@@ -85,12 +85,12 @@ void WebOSLocale::parseScript(string &item)
 	if (!script.empty() || item.length() != 4) return;
 
 	bool isValidScript = false;
-	if ( isupper(*item.begin()) )
+	if ( isupper(static_cast<int>(*item.begin())) )
 	{
 		isValidScript = true;
 		for (string::iterator itr = item.begin() + 1; itr != item.end(); ++itr)
 		{
-			if ( isupper(*itr) ) {
+			if ( isupper(static_cast<int>(*itr)) ) {
 				isValidScript = false;
 				break;
 			}

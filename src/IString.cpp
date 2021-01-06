@@ -91,7 +91,7 @@ bool IString::equalsIgnoreCase(const string& source, const string& target) {
     }
 
     for (string::const_iterator c1 = source.begin(), c2 = target.begin(); c1 != source.end(); ++c1, ++c2) {
-        if (tolower(*c1) != tolower(*c2)) {
+        if (tolower(static_cast<int>(*c1)) != tolower(static_cast<int>(*c2))) {
             return false;
         }
     }
@@ -140,7 +140,7 @@ vector<string> IString::splitBySymbol(const string& source, const char& delimite
 void IString::parseChoices() {
 	vector<string> choices = split(this->text, "|");
 	vector<string> parts;
-	string str;
+	string str = "";
 	size_t i;
 
 	strings.clear();
