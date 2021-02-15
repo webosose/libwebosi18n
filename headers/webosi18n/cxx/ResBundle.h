@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2021 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -121,6 +121,22 @@ class ResBundle {
 		 * @param file_path path to component root where "resources" folder should be located.
 		 */
 		void loadAllTranslations(string &name, string &file_path);
+		/**
+		 * Check if the locale is a pseudo locale
+		 * @param locale specified locale in BCP 47 format
+		 */
+		bool isPseudoLocale(string& locale);
+		/**
+		 * Returns pseudo strings
+		 * @param key key string which is a key for source string to be translated
+		 *              (there should be many identical source strings with different keys)
+		 * @param source source string which is to be translated
+		 */
+		const string& getPseudoString(const string& key, const string& source);
+		/**
+		 * Initialize pseudo maps
+		 */
+		map< int, map<string, string> > initPseudoCharMap();
 
 	private:
 		/**
@@ -135,6 +151,10 @@ class ResBundle {
 		 * Container for extracted translations loaded from json file.
 		 */
 		std::map<std::string, std::string> translations;
+		/**
+		 * Char maps for pseudo localization
+		 */
+		map< int, map<string, string> > pseudomap;
 };
 
 #endif  /* RESBUNDLE_H_ */

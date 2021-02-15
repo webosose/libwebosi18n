@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2018 LG Electronics, Inc.
+# Copyright (c) 2013-2021 LG Electronics, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,8 +38,9 @@ include_directories(${Boost_INCLUDE_DIRS})
 webos_add_compiler_flags(ALL ${Boost_CFLAGS_OTHER})
 
 if (LOCAL_UNITTEST)
-set(LD_LIBRARY_PATH /usr/local/webos/usr/lib/libpbnjson_cpp.so)
+	set(LD_LIBRARY_PATH /usr/local/webos/usr/lib/libpbnjson_cpp.so)
 endif()
+
 set(REQUIRED_LIBS
 	${PBNJSON_C_LDFLAGS}
 	${PBNJSON_CPP_LDFLAGS}
@@ -51,11 +52,19 @@ set(HEADERS headers/)
 set(CXX_HEADERS ${HEADERS}webosi18n/cxx/)
 set(C_HEADERS ${HEADERS}webosi18n/c/)
 set(SOURCES_DIR src/)
+set(DATA_DIR data/)
 
 include_directories(${HEADERS})
 include_directories(${CXX_HEADERS})
 include_directories(${C_HEADERS})
 include_directories(${SOURCES_DIR})
+include_directories(${DATA_DIR})
+
+if (LOCAL_UNITTEST)
+	add_definitions(-DPATH_TO_JSON="data/locale")
+else()
+	add_definitions(-DPATH_TO_JSON="${WEBOS_INSTALL_DATADIR}/libwebosi18n/data/locale")
+endif()
 
 set(SOURCE_FILES_SET
 	${SOURCES_DIR}LocaleMatcher.cpp
@@ -74,6 +83,17 @@ target_link_libraries(webosi18n ${REQUIRED_LIBS})
 webos_build_library(TARGET webosi18n HEADERS ${HEADERS})
 
 webos_build_pkgconfig(files/pkgconfig/webosi18n)
+
+set(DATA_FILES ${DATA_DIR}locale/pseudomap.json
+	${DATA_DIR}locale/zxx/Cyrl/pseudomap.json
+	${DATA_DIR}locale/zxx/Hans/pseudomap.json
+	${DATA_DIR}locale/zxx/Hebr/pseudomap.json)
+
+foreach(data_file ${DATA_FILES})
+  configure_file(${data_file} ${data_file} COPYONLY)
+endforeach()
+
+install(DIRECTORY ${DATA_DIR} DESTINATION ${WEBOS_INSTALL_DATADIR}/libwebosi18n/data)
 
 set(TEST_DIR test/)
 set(RES_DIR res/)

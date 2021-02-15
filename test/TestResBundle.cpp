@@ -76,22 +76,22 @@ void getLocStringWithKeySingleTest(ResBundle* resBundle, string key, string sour
 }
 
 void testResBundleFilePathConstructor() {
-    std::string locale = "uk-UA";
-    const std::string file_path = "res/strings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "uk-UA";
+	const std::string file_path = "res/strings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testResBundleFilePathConstructor")) return;
-    delete resBundle;
+	if (assertNull(resBundle, "testResBundleFilePathConstructor")) return;
+	delete resBundle;
 }
 
 void testResBundleFileAndPathConstructor() {
-    std::string locale = "uk-UA";
-    const std::string file = "strings.json";
-    const std::string resources_path = "res";
-    ResBundle* resBundle = new ResBundle(locale, file, resources_path);
+	std::string locale = "uk-UA";
+	const std::string file = "strings.json";
+	const std::string resources_path = "res";
+	ResBundle* resBundle = new ResBundle(locale, file, resources_path);
 
-    if (assertNull(resBundle, "testResBundleFileAndPathConstructor")) return;
-    delete resBundle;
+	if (assertNull(resBundle, "testResBundleFileAndPathConstructor")) return;
+	delete resBundle;
 }
 
 void testEmptyLocale() {
@@ -106,185 +106,233 @@ void testEmptyLocale() {
 }
 
 void testContainsSourceTrue() {
-    std::string locale = "fr-FR";
-    std::string file_path = "res/cppstrings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "fr-FR";
+	std::string file_path = "res/cppstrings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testContainsSourceTrue")) return;
+	if (assertNull(resBundle, "testContainsSourceTrue")) return;
 
-    containsSourseSimpleTest(resBundle, "Refresh label", true, "testContainsSourceTrue");
-    delete resBundle;
+	containsSourseSimpleTest(resBundle, "Refresh label", true, "testContainsSourceTrue");
+	delete resBundle;
 }
 
 void testContainsSourceFalse() {
-    std::string locale = "fr-FR";
-    std::string file_path = "res/cppstrings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "fr-FR";
+	std::string file_path = "res/cppstrings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testContainsSourceFalse")) return;
+	if (assertNull(resBundle, "testContainsSourceFalse")) return;
 
-    containsSourseSimpleTest(resBundle, "French Add title", false, "testContainsSourceFalse");
-    delete resBundle;
+	containsSourseSimpleTest(resBundle, "French Add title", false, "testContainsSourceFalse");
+	delete resBundle;
 }
 
 void testGetLocString1() {
-    std::string locale = "es-MX";
-    const std::string file_path = "res/stringsMX.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "es-MX";
+	const std::string file_path = "res/stringsMX.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocString1")) return;
+	if (assertNull(resBundle, "testGetLocString1")) return;
 
-    getLocStringSingleTest(resBundle, "Opt out failed. Try later",
-    		"Falló la opción de no participar. Intenta más tarde", "testGetLocString1");
-    delete resBundle;
+	getLocStringSingleTest(resBundle, "Opt out failed. Try later",
+			"Falló la opción de no participar. Intenta más tarde", "testGetLocString1");
+	delete resBundle;
+}
+
+void testGetPseudoString1()
+{
+	std::string locale = "zxx-XX";
+	ResBundle* resBundle = new ResBundle(locale, "");
+	if (assertNull(resBundle, "testGetPseudoString1")) return;
+
+	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCĦÏÐ ðëvíçë íš çõññëçţëð.3210",
+			"testGetPseudoString1");
+
+	delete resBundle;
+}
+
+void testGetPseudoString2()
+{
+	std::string locale = "zxx-Cyrl-XX";
+	ResBundle* resBundle = new ResBundle(locale, "", "");
+	if (assertNull(resBundle, "testGetPseudoString2")) return;
+
+	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCХИД дэвичэ ис чоннэчтэд.3210",
+			"testGetPseudoString2");
+
+	delete resBundle;
+}
+
+void testGetPseudoString3()
+{
+	std::string locale = "zxx-Hebr-XX";
+	ResBundle* resBundle = new ResBundle(locale, "", "");
+	if (assertNull(resBundle, "testGetPseudoString3")) return;
+
+	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCהִדּ דֶבִקֶ ִס קֹננֶקטֶד.3210",
+			"testGetPseudoString3");
+
+	delete resBundle;
+}
+
+void testGetPseudoString4()
+{
+	std::string locale = "zxx-Hans-XX";
+	ResBundle* resBundle = new ResBundle(locale, "", "");
+	if (assertNull(resBundle, "testGetPseudoString4")) return;
+
+	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCĦИדּ ðэב意çэ 意š ק夥ñнֶ可ţэד.3210",
+			"testGetPseudoString4");
+
+	delete resBundle;
 }
 
 void testGetLocString2() {
-    std::string locale = "es-MX";
-    const std::string file_path = "res/stringsMX.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "es-MX";
+	const std::string file_path = "res/stringsMX.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocString2")) return;
+	if (assertNull(resBundle, "testGetLocString2")) return;
 
 	getLocStringSingleTest(resBundle, "Done", "Listo", "testGetLocString2");
-    delete resBundle;
+	delete resBundle;
 }
 
 void testGetLocString3() {
-    std::string locale = "es-MX";
-    const std::string file_path = "res/stringsMX.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "es-MX";
+	const std::string file_path = "res/stringsMX.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocString3")) return;
+	if (assertNull(resBundle, "testGetLocString3")) return;
 
-    getLocStringSingleTest(resBundle, "A verification email was sent to {email}.",
-        		"Se ha enviado un mensaje de verificación a {email}.", "testGetLocString3");
-    delete resBundle;
+	getLocStringSingleTest(resBundle, "A verification email was sent to {email}.",
+				"Se ha enviado un mensaje de verificación a {email}.", "testGetLocString3");
+	delete resBundle;
 }
 
 void testGetLocStringResBundleFileAndPathConstructor() {
-    std::string locale = "uk-UA";
-    const std::string file = "strings.json";
-    const std::string resources_path = "res";
-    ResBundle* resBundle = new ResBundle(locale, file, resources_path);
+	std::string locale = "uk-UA";
+	const std::string file = "strings.json";
+	const std::string resources_path = "res";
+	ResBundle* resBundle = new ResBundle(locale, file, resources_path);
 
-    if (assertNull(resBundle, "testGetLocStringResBundleFileAndPathConstructor")) return;
+	if (assertNull(resBundle, "testGetLocStringResBundleFileAndPathConstructor")) return;
 
-    getLocStringSingleTest(resBundle, "Error", "Помилка", "testGetLocStringResBundleFileAndPathConstructor");
-    getLocStringSingleTest(resBundle, "enter password...", "Please, enter your password", "testGetLocStringResBundleFileAndPathConstructor");
-    getLocStringSingleTest(resBundle, "Edit Address", "Редагувати адресу", "testGetLocStringResBundleFileAndPathConstructor");
-    delete resBundle;
+	getLocStringSingleTest(resBundle, "Error", "Помилка", "testGetLocStringResBundleFileAndPathConstructor");
+	getLocStringSingleTest(resBundle, "enter password...", "Please, enter your password", "testGetLocStringResBundleFileAndPathConstructor");
+	getLocStringSingleTest(resBundle, "Edit Address", "Редагувати адресу", "testGetLocStringResBundleFileAndPathConstructor");
+	delete resBundle;
 }
 
 void testGetLocStringWithExistedKey1() {
-    std::string locale = "es-MX";
-    const std::string file_path = "res/stringsMX.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "es-MX";
+	const std::string file_path = "res/stringsMX.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringWithExistedKey1")) return;
+	if (assertNull(resBundle, "testGetLocStringWithExistedKey1")) return;
 
-    getLocStringWithKeySingleTest(resBundle, "Opt out failed. Try later", "Try later",
-    		"Falló la opción de no participar. Intenta más tarde", "testGetLocStringWithExistedKey1");
-    delete resBundle;
+	getLocStringWithKeySingleTest(resBundle, "Opt out failed. Try later", "Try later",
+			"Falló la opción de no participar. Intenta más tarde", "testGetLocStringWithExistedKey1");
+	delete resBundle;
 }
 
 void testGetLocStringWithExistedKey2() {
-    std::string locale = "es-MX";
-    const std::string file_path = "res/stringsMX.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "es-MX";
+	const std::string file_path = "res/stringsMX.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringWithExistedKey2")) return;
+	if (assertNull(resBundle, "testGetLocStringWithExistedKey2")) return;
 
-    getLocStringWithKeySingleTest(resBundle, "Done", "Task is done!", "Listo", "testGetLocStringWithExistedKey2");
-    delete resBundle;
+	getLocStringWithKeySingleTest(resBundle, "Done", "Task is done!", "Listo", "testGetLocStringWithExistedKey2");
+	delete resBundle;
 }
 
 void testGetLocStringWithNonExistedKey1() {
-    std::string locale = "fr-FR";
-    const std::string file_path = "res/cppstrings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "fr-FR";
+	const std::string file_path = "res/cppstrings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringWithNonExistedKey1")) return;
+	if (assertNull(resBundle, "testGetLocStringWithNonExistedKey1")) return;
 
-    getLocStringWithKeySingleTest(resBundle, "addtitle", "Add title", "Add title", "testGetLocStringWithNonExistedKey1");
-    delete resBundle;
+	getLocStringWithKeySingleTest(resBundle, "addtitle", "Add title", "Add title", "testGetLocStringWithNonExistedKey1");
+	delete resBundle;
 }
 
 void testGetLocStringWithNonExistedKey2() {
-    std::string locale = "fr-FR";
-    const std::string file_path = "res/cppstrings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "fr-FR";
+	const std::string file_path = "res/cppstrings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringWithNonExistedKey2")) return;
+	if (assertNull(resBundle, "testGetLocStringWithNonExistedKey2")) return;
 
-    getLocStringWithKeySingleTest(resBundle, "switchtomode", "Switch to mode", "Switch to mode", "testGetLocStringWithNonExistedKey2");
-    delete resBundle;
+	getLocStringWithKeySingleTest(resBundle, "switchtomode", "Switch to mode", "Switch to mode", "testGetLocStringWithNonExistedKey2");
+	delete resBundle;
 }
 
 void testGetLocaleWithResourcesGerman() {
-    std::string locale = "de-DE";
-    std::string file_path = "res/strings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "de-DE";
+	std::string file_path = "res/strings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocaleWithResourcesGerman")) return;
+	if (assertNull(resBundle, "testGetLocaleWithResourcesGerman")) return;
 
-    getLocaleSimpleTest(resBundle, locale, "testGetLocaleWithResourcesGerman");
-    delete resBundle;
+	getLocaleSimpleTest(resBundle, locale, "testGetLocaleWithResourcesGerman");
+	delete resBundle;
 }
 
 void testGetLocaleWithResourcesMongolian() {
-    std::string locale = "mn-Cyrl-MN";
-    std::string file_path = "res/strings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "mn-Cyrl-MN";
+	std::string file_path = "res/strings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocaleWithResourcesGerman")) return;
+	if (assertNull(resBundle, "testGetLocaleWithResourcesGerman")) return;
 
-    getLocaleSimpleTest(resBundle, locale, "testGetLocaleWithResourcesGerman");
-    delete resBundle;
+	getLocaleSimpleTest(resBundle, locale, "testGetLocaleWithResourcesGerman");
+	delete resBundle;
 }
 
 void testGetLocStringMultipleTimes() {
-    std::string locale = "fr-FR";
-    const std::string file_path = "res/cppstrings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "fr-FR";
+	const std::string file_path = "res/cppstrings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringMultipleTimes")) return;
+	if (assertNull(resBundle, "testGetLocStringMultipleTimes")) return;
 
-    getLocStringSingleTest(resBundle, "Switch to mode", "French Switch to mode", "testGetLocStringMultipleTimes");
-    getLocStringSingleTest(resBundle, "Save title", "French Save title", "testGetLocStringMultipleTimes");
-    getLocStringSingleTest(resBundle, "Refresh label", "French Refresh label", "testGetLocStringMultipleTimes");
-    getLocStringSingleTest(resBundle, "Refresh label item", "Refresh label item", "testGetLocStringMultipleTimes");
-    getLocStringSingleTest(resBundle, "Add title", "French Add title", "testGetLocStringMultipleTimes");
+	getLocStringSingleTest(resBundle, "Switch to mode", "French Switch to mode", "testGetLocStringMultipleTimes");
+	getLocStringSingleTest(resBundle, "Save title", "French Save title", "testGetLocStringMultipleTimes");
+	getLocStringSingleTest(resBundle, "Refresh label", "French Refresh label", "testGetLocStringMultipleTimes");
+	getLocStringSingleTest(resBundle, "Refresh label item", "Refresh label item", "testGetLocStringMultipleTimes");
+	getLocStringSingleTest(resBundle, "Add title", "French Add title", "testGetLocStringMultipleTimes");
 
-    delete resBundle;
+	delete resBundle;
 }
 
 void testGetLocStringMultipleTimesCrissCross() {
-    std::string locale = "de-DE";
-    std::string file_path = "res/strings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "de-DE";
+	std::string file_path = "res/strings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringMultipleTimesCrissCross")) return;
+	if (assertNull(resBundle, "testGetLocStringMultipleTimesCrissCross")) return;
 
-    getLocaleSimpleTest(resBundle, locale, "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
-    getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
-    delete resBundle;
+	getLocaleSimpleTest(resBundle, locale, "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Settings", "Einstellungen", "testGetLocStringMultipleTimesCrissCross");
+	getLocStringSingleTest(resBundle, "Back Up Now", "Jetzt sichern", "testGetLocStringMultipleTimesCrissCross");
+	delete resBundle;
 }
 
 void testGetLocStringMultipleSameCallsInTime() {
-    std::string locale = "de-DE";
-    std::string file_path = "res/strings.json";
-    ResBundle* resBundle = new ResBundle(locale, file_path);
+	std::string locale = "de-DE";
+	std::string file_path = "res/strings.json";
+	ResBundle* resBundle = new ResBundle(locale, file_path);
 
-    if (assertNull(resBundle, "testGetLocStringMultipleSameCallsInTime")) return;
+	if (assertNull(resBundle, "testGetLocStringMultipleSameCallsInTime")) return;
 
-    getLocStringSingleTest(resBundle, "Select a question", "Frage auswählen", "testResBundleCGetLocStringMultipleSameCallsInTime");
+	getLocStringSingleTest(resBundle, "Select a question", "Frage auswählen", "testResBundleCGetLocStringMultipleSameCallsInTime");
 	getLocStringSingleTest(resBundle, "Error", "Fehler", "testResBundleCGetLocStringMultipleSameCallsInTime");
 	getLocStringSingleTest(resBundle, "Select a question", "Frage auswählen", "testResBundleCGetLocStringMultipleSameCallsInTime");
 	getLocStringSingleTest(resBundle, "Help", "Hilfe", "testResBundleCGetLocStringMultipleSameCallsInTime");
@@ -293,7 +341,7 @@ void testGetLocStringMultipleSameCallsInTime() {
 	getLocStringSingleTest(resBundle, "Select a question", "Frage auswählen", "testResBundleCGetLocStringMultipleSameCallsInTime");
 	getLocStringSingleTest(resBundle, "Turn Off and Erase Backup", "Deakt./gesich. Daten löschen", "testResBundleCGetLocStringMultipleSameCallsInTime");
 	getLocStringSingleTest(resBundle, "Select a question", "Frage auswählen", "testResBundleCGetLocStringMultipleSameCallsInTime");
-    delete resBundle;
+	delete resBundle;
 }
 
 void testGetLocStringMultipleCrissCrossWithKeys()
@@ -409,52 +457,76 @@ void testGetLocStringMultipleDifferentCalls()
 }
 
 void runTestResBundle(int* testsNumber, int* failuresNumber) {
-    cout << "Running TestResBundle file" << endl;
-    cout << "-------------------------------------------------------------" << endl;
+	cout << "Running TestResBundle file" << endl;
+	cout << "-------------------------------------------------------------" << endl;
 
-    clock_t begin, end, tmp;
-    double timeElapsed = .0000;
-    short tests_count = 0;
+	clock_t begin, end, tmp;
+	double timeElapsed = .0000;
+	short tests_count = 0;
 
-    tmp = clock();
-    begin = tmp;
-    testResBundleFilePathConstructor();
-    timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
-    cout << "Testcase: testResBundleFilePathConstructor took " << timeElapsed << " seconds" << endl;
-    tests_count++;
+	tmp = clock();
+	begin = tmp;
+	testResBundleFilePathConstructor();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testResBundleFilePathConstructor took " << timeElapsed << " seconds" << endl;
+	tests_count++;
 
-    tmp = clock();
-    testResBundleFileAndPathConstructor();
+	tmp = clock();
+	testResBundleFileAndPathConstructor();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	cout << "Testcase: testResBundleFileAndPathConstructor took " << timeElapsed << " seconds" << endl;
 	tests_count++;
 
-    tmp = clock();
-    testEmptyLocale();
+	tmp = clock();
+	testEmptyLocale();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	cout << "Testcase: testEmptyLocale took " << timeElapsed << " seconds" << endl;
 	tests_count++;
 
-    tmp = clock();
-    testContainsSourceTrue();
-    timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
-    cout << "Testcase: testContainsSourceTrue took " << timeElapsed << " seconds" << endl;
-    tests_count++;
+	tmp = clock();
+	testContainsSourceTrue();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testContainsSourceTrue took " << timeElapsed << " seconds" << endl;
+	tests_count++;
 
-    tmp = clock();
+	tmp = clock();
 	testContainsSourceFalse();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	cout << "Testcase: testContainsSourceFalse took " << timeElapsed << " seconds" << endl;
 	tests_count++;
 
-    tmp = clock();
-    testGetLocString1();
-    timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
-    cout << "Testcase: testGetLocString1 took " << timeElapsed << " seconds" << endl;
-    tests_count++;
+	tmp = clock();
+	testGetLocString1();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetLocString1 took " << timeElapsed << " seconds" << endl;
+	tests_count++;
 
-    tmp = clock();
-    testGetLocString2();
+	tmp = clock();
+	testGetPseudoString1();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetPseudoString1 took " << timeElapsed << " seconds" << endl;
+	tests_count++;
+
+	tmp = clock();
+	testGetPseudoString2();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetPseudoString2 took " << timeElapsed << " seconds" << endl;
+	tests_count++;
+
+	tmp = clock();
+	testGetPseudoString3();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetPseudoString3 took " << timeElapsed << " seconds" << endl;
+	tests_count++;
+
+	tmp = clock();
+	testGetPseudoString4();
+	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetPseudoString4 took " << timeElapsed << " seconds" << endl;
+	tests_count++;
+
+	tmp = clock();
+	testGetLocString2();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	cout << "Testcase: testGetLocString2 took " << timeElapsed << " seconds" << endl;
 	tests_count++;
@@ -471,8 +543,8 @@ void runTestResBundle(int* testsNumber, int* failuresNumber) {
 	cout << "Testcase: testGetLocStringResBundleFileAndPathConstructor took " << timeElapsed << " seconds" << endl;
 	tests_count++;
 
-    tmp = clock();
-    testGetLocStringWithExistedKey1();
+	tmp = clock();
+	testGetLocStringWithExistedKey1();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	cout << "Testcase: testGetLocStringWithExistedKey1 took " << timeElapsed << " seconds" << endl;
 	tests_count++;
@@ -543,15 +615,16 @@ void runTestResBundle(int* testsNumber, int* failuresNumber) {
 	cout << "Testcase: testGetMultipleResourceBundles took " << timeElapsed << " seconds" << endl;
 	tests_count++;
 
-    tmp = clock();
-    testGetLocStringMultipleDifferentCalls();
-    end = clock();
-    timeElapsed = ((double)(end - tmp))/CLOCKS_PER_SEC;
-    cout << "Testcase: testGetLocStringMultipleDifferentCalls took " << timeElapsed << " seconds" << endl;
-    tests_count++;
+	tmp = clock();
+	testGetLocStringMultipleDifferentCalls();
+	end = clock();
+	timeElapsed = ((double)(end - tmp))/CLOCKS_PER_SEC;
+	cout << "Testcase: testGetLocStringMultipleDifferentCalls took " << timeElapsed << " seconds" << endl;
+	tests_count++;
 
-    *testsNumber += tests_count;
-    *failuresNumber += resBundleTestFailures;
-    cout << "Tests run: "<< tests_count << " , Failures: " << resBundleTestFailures << ", Time elapsed: " << ((double)(end- begin)/CLOCKS_PER_SEC) << " sec" << endl;
-    cout << "---------------------- Standard Output ----------------------" << endl;
+
+	*testsNumber += tests_count;
+	*failuresNumber += resBundleTestFailures;
+	cout << "Tests run: "<< tests_count << " , Failures: " << resBundleTestFailures << ", Time elapsed: " << ((double)(end- begin)/CLOCKS_PER_SEC) << " sec" << endl;
+	cout << "---------------------- Standard Output ----------------------" << endl;
 }
