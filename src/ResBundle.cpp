@@ -248,7 +248,7 @@ const string& ResBundle::getPseudoString(const string& key, const string& source
 			const string DIGITS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			long total = 1;
 			for (int i = 0; i < source.length(); i++) {
-				total += source.at(i);
+				total += static_cast<int>(source.at(i));
 				total *= 157291;
 				total %= 238321;
 			}
