@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2022 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -46,14 +46,14 @@ int main()
 	try {
 		runTestIString(tests, failures);
 		runTestIString_C(tests, failures);
-	} catch(pbnjson::JValue::InvalidType const& ex) {
-		cout << "\npbnjson::JValue::InvalidType exception was thrown in runTestIStirng test\n" << endl;
+	} catch (std::exception const& ex) {
+		cout << "\nException was thrown in runTestIStirng test\n" << endl;
 	}
 
 	runTestWebOSLocale(tests, failures);
 	runTestWebOSLocale_C(tests, failures);
 
-	} catch(boost::exception const& ex) {
+	} catch (boost::exception const& ex) {
 		cout << "\nBoost exception was thrown in runTestIStirng_C test\n" << endl;
 	}
 

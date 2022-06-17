@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2022 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ map<string, string> LocaleMatcher::initLocales() {
 
 		if (!result.empty()) {
 			pbnjson::JSchemaFragment inputSchema("{}");
-			pbnjson::JDomParser DOMParser(NULL);
+			pbnjson::JDomParser DOMParser;
 
 			if (!DOMParser.parse(result, inputSchema)) {
 				cerr << "File " << LOCALESJSON_PATH << " parsing error" << endl;
@@ -51,7 +51,7 @@ map<string, string> LocaleMatcher::initLocales() {
 			}
 
 			pbnjson::JValue localesJSON = DOMParser.getDom();
-			for (pbnjson::JValue::ObjectIterator iter = localesJSON.begin(); iter != localesJSON.end(); iter++) {
+			for (pbnjson::JValue::ObjectIterator iter = localesJSON.children().begin(); iter != localesJSON.children().end(); iter++) {
 				if (((*iter).second).isString()) {
 					temp_locales.insert( pair<string, string>((*iter).first.asString(), (*iter).second.asString()) );
 				}

@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2022 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ string IString::format(pbnjson::JValue values)
 	if (!values.isNull()) {
 		if (values.isObject()) {
 			string keyInBraces;
-			for (pbnjson::JValue::ObjectIterator iter = values.begin(); iter != values.end(); iter++) {
+			for (pbnjson::JValue::ObjectIterator iter = values.children().begin(); iter != values.children().end(); iter++) {
 				keyInBraces = "{" + (*iter).first.asString() + "}";
 				if (formatted.find(keyInBraces) != string::npos)
 					formatted.replace(formatted.find(keyInBraces), keyInBraces.length(), (*iter).second.asString());

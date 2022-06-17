@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2021 LG Electronics, Inc.
+// Copyright (c) 2013-2022 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ void ResBundle::loadTranslations(string &file_path)
 
 		if (!fileContent.empty()) {
 			pbnjson::JSchemaFragment inputSchema("{}");
-			pbnjson::JDomParser DOMParser(NULL);
+			pbnjson::JDomParser DOMParser;
 
 			if (!DOMParser.parse(fileContent, inputSchema)) {
 				cerr << "File " << file_path << " DOM parsing error" << endl;
@@ -168,15 +168,12 @@ void ResBundle::loadTranslations(string &file_path)
 
 			pbnjson::JValue translationsJSON = DOMParser.getDom();
 			if (!translationsJSON.isNull() && translationsJSON.isObject()) {
-
-				for (pbnjson::JValue::ObjectIterator iter = translationsJSON.begin(); iter != translationsJSON.end(); iter++) {
-						translations[(*iter).first.asString()] = (*iter).second.asString();
+				for (pbnjson::JValue::ObjectIterator iter = translationsJSON.children().begin(); iter != translationsJSON.children().end(); iter++) {
+					translations[(*iter).first.asString()] = (*iter).second.asString();
 				}
-
 			}
 		}
 	}
-
 }
 
 bool ResBundle::containsSource(const string& source)
