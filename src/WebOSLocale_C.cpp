@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
  * @author Oleksandr Gorbunov
  */
 #include "webosi18n/cxx/WebOSLocale.h"
+#include <string.h>
 
 extern "C" {
   #include "webosi18n/c/WebOSLocale_C.h"
@@ -40,23 +41,23 @@ void webOSLocale_destroy(WebOSLocaleC * webOSLocale)
 
 const char* webOSLocale_GetLanguage(WebOSLocaleC * webOSLocale)
 {
-	return static_cast<std::string>(reinterpret_cast<WebOSLocale*>(webOSLocale)->getLanguage()).c_str();
+	return strdup(reinterpret_cast<WebOSLocale*>(webOSLocale)->getLanguage().c_str());
 }
 const char* webOSLocale_GetScript(WebOSLocaleC * webOSLocale)
 {
-	return static_cast<std::string>(reinterpret_cast<WebOSLocale*>(webOSLocale)->getScript()).c_str();
+	return strdup(reinterpret_cast<WebOSLocale*>(webOSLocale)->getScript().c_str() );
 }
 const char* webOSLocale_GetRegion(WebOSLocaleC * webOSLocale)
 {
-	return static_cast<std::string>(reinterpret_cast<WebOSLocale*>(webOSLocale)->getRegion()).c_str();
+	return strdup( reinterpret_cast<WebOSLocale*>(webOSLocale)->getRegion().c_str() );
 }
 const char* webOSLocale_GetVariant(WebOSLocaleC * webOSLocale)
 {
-	return static_cast<std::string>(reinterpret_cast<WebOSLocale*>(webOSLocale)->getVariant()).c_str();
+	return strdup( reinterpret_cast<WebOSLocale*>(webOSLocale)->getVariant().c_str() );
 }
 const char* webOSLocale_ToString(WebOSLocaleC * webOSLocale)
 {
-	return static_cast<std::string>(reinterpret_cast<WebOSLocale*>(webOSLocale)->toString()).c_str();
+	return strdup( reinterpret_cast<WebOSLocale*>(webOSLocale)->toString().c_str() );
 }
 
 bool webOSLocale_IsPseudo(WebOSLocaleC * webOSLocale)

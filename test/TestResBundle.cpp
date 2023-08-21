@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2018 LG Electronics, Inc.
+// Copyright (c) 2013-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@ void getLocStringSingleTest(ResBundle* resBundle, string source, string expected
 	string result = resBundle->getLocString(source);
 	if (result.compare(expected) != 0) {
 		cout << "\n%TEST_FAILED% testname = " << method_name << " TestResBundle message=error" << endl;
-		cout << "		Expetcted: " << expected << "; actual: " << result << endl;
+		cout << "		Expetcted: \"" << expected << "\"; actual: \"" << result << "\"" << endl;
 		resBundleTestFailures++;
 	}
 }
@@ -145,7 +145,7 @@ void testGetPseudoString1()
 	ResBundle* resBundle = new ResBundle(locale, "");
 	if (assertNull(resBundle, "testGetPseudoString1")) return;
 
-	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCĦÏÐ ðëvíçë íš çõññëçţëð.3210",
+	getLocStringSingleTest(resBundle, "HID device is connected.", "[ĦÏÐ ðëvíçë íš çõññëçţëð.76543210]",
 			"testGetPseudoString1");
 
 	delete resBundle;
@@ -157,7 +157,7 @@ void testGetPseudoString2()
 	ResBundle* resBundle = new ResBundle(locale, "", "");
 	if (assertNull(resBundle, "testGetPseudoString2")) return;
 
-	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCХИД дэвичэ ис чоннэчтэд.3210",
+	getLocStringSingleTest(resBundle, "HID device is connected.", "[ХИД дэвичэ ис чоннэчтэд.76543210]",
 			"testGetPseudoString2");
 
 	delete resBundle;
@@ -169,7 +169,7 @@ void testGetPseudoString3()
 	ResBundle* resBundle = new ResBundle(locale, "", "");
 	if (assertNull(resBundle, "testGetPseudoString3")) return;
 
-	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCהִדּ דֶבִקֶ ִס קֹננֶקטֶד.3210",
+	getLocStringSingleTest(resBundle, "HID device is connected.", "[הִדּ דֶבִקֶ ִס קֹננֶקטֶד.76543210]",
 			"testGetPseudoString3");
 
 	delete resBundle;
@@ -181,7 +181,7 @@ void testGetPseudoString4()
 	ResBundle* resBundle = new ResBundle(locale, "", "");
 	if (assertNull(resBundle, "testGetPseudoString4")) return;
 
-	getLocStringSingleTest(resBundle, "HID device is connected.", "pnCĦИדּ ðэב意çэ 意š ק夥ñнֶ可ţэד.3210",
+	getLocStringSingleTest(resBundle, "HID device is connected.", "[ĦИדּ ðэב意çэ 意š ק夥ñнֶ可ţэד.76543210]",
 			"testGetPseudoString4");
 
 	delete resBundle;

@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2022 LG Electronics, Inc.
+// Copyright (c) 2013-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@
 
 size_t resBundle_CTestFailures = 0;
 
-/*
 bool assertNullC(ResBundleC* resBundle, char* method_name) {
 	if (!resBundle) {
 		printf("\nTEST_FAILED testname = %s TestResBundle_C ResBundleC is NULL\n", method_name);
@@ -63,7 +62,7 @@ void getLocStringSingleCTest(ResBundleC* resBundle, const char* source, const ch
 	free( (char*)result );
 }
 
-/*
+
 void getLocStringWithKeySingleCTest(ResBundleC* resBundle, const char* key, const char* source, const char* expected, char* method_name) {
 	const char* result = resBundle_getLocStringWithKey(resBundle, key, source);
 	if (strcmp(result, expected) != 0) {
@@ -74,6 +73,7 @@ void getLocStringWithKeySingleCTest(ResBundleC* resBundle, const char* key, cons
 	free( (char*)result );
 }
 
+/*
 void getLocStringSingleBufferCTest(ResBundleC* resBundle, const char* source, const char* expected,
 		char* buffer, size_t buffer_size, char* method_name) {
 	const char* result = resBundle_getLocStringBuffer(resBundle, source, buffer, buffer_size);
@@ -95,6 +95,7 @@ void getLocStringSingleBufferNotEqualsCTest(ResBundleC* resBundle, const char* s
 	}
 	free( (char*)result );
 }
+*/
 
 void testResBundleCFilepathConstructor()
 {
@@ -256,6 +257,7 @@ void testGetLocStringResBundleCCompletePathConstructor() {
     resBundle_destroy(resBundle);
 }
 
+/*
 void testResBundleCGetLocStringBufferCorrect()
 {
 	const char* locale = "es-MX";
@@ -273,7 +275,6 @@ void testResBundleCGetLocStringBufferCorrect()
 	resBundle_destroy(resBundle);
 }
 
-/*
 void testResBundleCGetLocStringBufferIncorrectSize()
 {
 	const char* locale = "es-MX";
@@ -423,6 +424,7 @@ void testResBundleCGetLocStringBufferMultipleCalls()
 
 	resBundle_destroy(resBundle);
 }
+*/
 
 void testResBundleCGetLocStringWithExistedKey1()
 {
@@ -624,7 +626,7 @@ void testResBundleCGetLocStringMultipleDifferentCalls()
 
 	resBundle_destroy(resBundle);
 }
-*/
+
 
 void runTestResBundle_C(int* testsNumber, int* failuresNumber)
 {
@@ -634,7 +636,6 @@ void runTestResBundle_C(int* testsNumber, int* failuresNumber)
 	double timeElapsed = .0000;
 	short tests_count = 0;
 
-	/*
 	tmp = clock();
 	begin = tmp;
 	testResBundleCFilepathConstructor();
@@ -714,6 +715,7 @@ void runTestResBundle_C(int* testsNumber, int* failuresNumber)
 	printf("Testcase: testGetLocStringResBundleCCompletePathConstructor took %f seconds\n", timeElapsed);
 	tests_count++;
 
+	/*
 	tmp = clock();
 	testResBundleCGetLocStringBufferCorrect();
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
@@ -761,6 +763,7 @@ void runTestResBundle_C(int* testsNumber, int* failuresNumber)
 	timeElapsed = ((double)(clock() - tmp))/CLOCKS_PER_SEC;
 	printf("Testcase: testResBundleCGetLocStringBufferMultipleCalls took %f seconds\n", timeElapsed);
 	tests_count++;
+	*/
 
 	tmp = clock();
 	testResBundleCGetLocStringWithExistedKey1();
@@ -828,7 +831,6 @@ void runTestResBundle_C(int* testsNumber, int* failuresNumber)
 	timeElapsed = ((double)(end - tmp))/CLOCKS_PER_SEC;
 	printf("Testcase: testResBundleCGetLocStringMultipleDifferentCalls took %f seconds\n", timeElapsed);
 	tests_count++;
-	 */
 
 	*testsNumber += tests_count;
 	*failuresNumber += resBundle_CTestFailures;

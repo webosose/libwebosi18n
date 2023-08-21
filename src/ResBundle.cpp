@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2022 LG Electronics, Inc.
+// Copyright (c) 2013-2023 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@
 #include <pbnjson.hpp>
 #include <sys/stat.h>
 #include <list>
+#include <cmath>
 
 const string ResBundle::jsonPattern = ".json";
 
@@ -208,7 +209,7 @@ const string& ResBundle::getPseudoString(const string& key, const string& source
 
 	int map_size = pseudomap.size();
 	if (map_size > 0) {
-		pseudo_string = "";
+		pseudo_string = "["; // for encapsulation
 		for (int i = 0; i < source.length(); i++) {
 			int idx = (map_size > 1) ? i % map_size : 0;
 
@@ -225,44 +226,24 @@ const string& ResBundle::getPseudoString(const string& key, const string& source
 			}
 		}
 
-		if (source.length() > 10) {
-			int length = source.length() / 5;
-			for (int i = length - 1; i >= 0; i--) {
+		int addLen = 0;
+		if (source.length() <= 20) {
+			addLen = round(source.length() / 2);
+		} else if (source.length() > 20 && source.length() <= 40) {
+			addLen = round(source.length() / 3);
+		} else {
+			addLen = round(source.length() / 5);
+		}
+
+		if (addLen > 0) {
+			for (int i = addLen - 1; i >= 0; i--) {
 				std::ostringstream oss;
 				oss << (i % 10);
 				pseudo_string.append(oss.str());
 			}
 		}
 
-		// Generate a 3 digit hash in base 62
-		// Three digits in base 62 are 62*62*62 = 238328 numbers.
-		// The largest prime less than 238328 is 238321.
-		// 157291 and 238321 are both prime, so they are also co-prime with each other.
-		// This means that they create an algebraic ring and multiplying by 157291
-		// and truncating by 238321 will eventually hit all values from 0 to 238320
-		// and distribute the hash values evenly across the range.
-		{
-			const string DIGITS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			long total = 1;
-			for (int i = 0; i < source.length(); i++) {
-				total += static_cast<int>(source.at(i));
-				total *= 157291;
-				total %= 238321;
-			}
-
-			long digit;
-			char hash;
-			digit = total % 62;
-			hash = DIGITS.at((int) digit);
-			pseudo_string.insert(0, 1, hash);
-			total /= 62;
-			digit = total % 62;
-			hash = DIGITS.at((int) digit);
-			pseudo_string.insert(0, 1, hash);
-			total /= 62;
-			hash = DIGITS.at((int) total);
-			pseudo_string.insert(0, 1, hash);
-		}
+		pseudo_string += "]"; // for encapsulation
 	}
 
 	return pseudo_string;
