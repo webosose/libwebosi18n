@@ -45,10 +45,10 @@ WebOSLocale::WebOSLocale(string locale)
 
 WebOSLocale::WebOSLocale(string language, string region, string script, string variant)
 {
-	this->language = language;
-	this->region = region;
-	this->script = script;
-	this->variant = variant;
+	this->language = std::move(language);
+	this->region = std::move(region);
+	this->script = std::move(script);
+	this->variant = std::move(variant);
 }
 
 string WebOSLocale::getLanguage()

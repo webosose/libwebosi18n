@@ -317,6 +317,7 @@ IString* IString::getChoice(double reference) {
 				i = selectors.size();
 			}
 		}
+		if (result) break;
 	}
 
 	if (!result) {
@@ -355,7 +356,7 @@ string IString::formatChoice(bool reference, map<string, string> values) {
 	if ( !result ) {
 		return "";
 	}
-	string returnVal = (values.empty()) ? result->toString() : result->format(values);
+	string returnVal = (values.empty()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -366,7 +367,7 @@ string IString::formatChoice(bool reference, pbnjson::JValue values) {
 	if ( !result ) {
 		return "";
 	}
-	string returnVal = (values.isNull()) ? result->toString() : result->format(values);
+	string returnVal = (values.isNull()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -378,7 +379,7 @@ string IString::formatChoice(double reference, map<string, string> values) {
 	if ( !result)
 		return "";
 
-	string returnVal = (values.empty()) ? result->toString() : result->format(values);
+	string returnVal = (values.empty()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -389,7 +390,7 @@ string IString::formatChoice(double reference, pbnjson::JValue values) {
 	if ( !result)
 		return "";
 
-	string returnVal = (values.isNull()) ? result->toString() : result->format(values);
+	string returnVal = (values.isNull()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -400,7 +401,7 @@ string IString::formatChoice(const string& reference, map<string, string> values
 	if ( !result )
 		return "";
 
-	string returnVal = (values.empty()) ? result->toString() : result->format(values);
+	string returnVal = (values.empty()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -412,7 +413,7 @@ string IString::formatChoice(const string& reference, pbnjson::JValue values) {
 		return "";
 	}
 
-	string returnVal = (values.isNull()) ? result->toString() : result->format(values);
+	string returnVal = (values.isNull()) ? result->toString() : result->format(std::move(values));
 	delete result;
 
 	return returnVal;
@@ -420,7 +421,7 @@ string IString::formatChoice(const string& reference, pbnjson::JValue values) {
 
 string IString::format(const string& message, map<string, string> parameters) {
 	IString* iString = new IString(message);
-	string result = iString->format(parameters);
+	string result = iString->format(std::move(parameters));
 	delete iString;
     return result;
 }
@@ -431,7 +432,7 @@ string IString::formatChoice(const string& message, long reference) {
 
 string IString::formatChoice(const string& message, long reference, map<string, string> parameters) {
 	IString* iString = new IString(message);
-	string result = iString->formatChoice(static_cast<double>(reference), parameters);
+	string result = iString->formatChoice(static_cast<double>(reference), std::move(parameters));
 	delete iString;
 	return result;
 }
@@ -442,7 +443,7 @@ string IString::formatChoice(const string& message, double reference) {
 
 string IString::formatChoice(const string& message, double reference, map<string, string> parameters) {
 	IString* iString = new IString(message);
-	string result = iString->formatChoice(reference, parameters);
+	string result = iString->formatChoice(reference, std::move(parameters));
 	delete iString;
 	return result;
 }

@@ -333,7 +333,7 @@ map< int, map<string, string> > ResBundle::initPseudoCharMap() {
 			}
 		}
 
-		pseudomaps[num++] = temp_pseudomap;
+		pseudomaps[num++] = std::move(temp_pseudomap);
 	}
 
 	return pseudomaps;
