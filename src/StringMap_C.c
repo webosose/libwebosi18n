@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2023 LG Electronics, Inc.
+// Copyright (c) 2013-2024 LG Electronics, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,6 +35,10 @@ StringMap* stringMap_create()
 		mapPointer->size = 0;
 		mapPointer->MAX_ITEMS = INCREASING_STEP;
 		mapPointer->items = (PairItem*) malloc( mapPointer->MAX_ITEMS * sizeof(PairItem) );
+		if (NULL == mapPointer->items) {
+			free(mapPointer);
+			return NULL;
+		}
 	}
 	return mapPointer;
 }
